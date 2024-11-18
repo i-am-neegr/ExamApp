@@ -16,8 +16,10 @@ public class JavaQuestionService implements QuestionService {
 
 
     @Override
-    public void addQuestion(String question, String answer) {
-        addQuestion(new Question(question, answer));
+    public Question addQuestion(String question, String answer) {
+        Question q = new Question(question, answer);
+        addQuestion(q);
+        return q;
     }
 
     @Override
@@ -36,13 +38,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public void removeQuestion(Question question) {
-        for (int i = 0; i < questions.size(); i++) {
-            if (question.equals(questions.get(i))) {
-                questions.remove(i);
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Question not found");
+        questions.remove(question);
     }
 
     @Override

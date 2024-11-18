@@ -19,15 +19,13 @@ public class JavaQuestionController {
     }
 
     @GetMapping("/add")
-    public String add(@RequestParam String question, @RequestParam String answer) {
-        service.addQuestion(question, answer);
-        return "success";
+    public Question add(@RequestParam String question, @RequestParam String answer) {
+        return service.addQuestion(question, answer);
     }
 
     @GetMapping("/remove")
-    public String remove(@RequestParam String question, @RequestParam String answer) {
+    public void remove(@RequestParam String question, @RequestParam String answer) {
         service.removeQuestion(question, answer);
-        return "success";
     }
 
     @GetMapping()
