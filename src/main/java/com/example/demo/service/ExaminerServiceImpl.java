@@ -4,8 +4,9 @@ import com.example.demo.models.Question;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
@@ -20,16 +21,12 @@ public class ExaminerServiceImpl implements ExaminerService {
         if (amount > questionService.getNumberOfQuestions()) {
             throw new BadRequestException();
         }
-        List<Question> questions = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            while (questions.size() < i + 1) {
-                Question question = questionService.getRandomQuestion();
-                if (!questions.contains(question)) {
-                    questions.add(question);
-                }
-            }
+        Set<Question> questions = new HashSet<>();
+        while (questions.size() < amount) {
+            Question question = questionService.getRandomQuestion();
+            questions.add(question);
         }
-        return questions;
+        return questions.stream().toList();
     }
 
 }
